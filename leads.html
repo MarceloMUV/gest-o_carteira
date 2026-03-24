@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muvstok | Gestão de Leads</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Carteira</span>
+            </a>
+            <a href="leads.html" class="nav-item active">
+                <i class="fa-solid fa-filter"></i>
+                <span>Leads</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <span id="updateTime">Att: Hoje</span>
+        </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        
+        <!-- Header -->
+        <header class="top-header">
+            <div class="logo-area">
+                <span class="logo-text">muvstok</span>
+                <span class="separator">|</span>
+                <span class="page-title">GESTÃO DE LEADS E OPERAÇÃO</span>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn">
+                    <i class="fa-solid fa-arrows-rotate"></i> Atualizar
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-area">
+
+            <!-- Global Dashboard Filters -->
+            <div class="global-filters">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-building"></i>
+                    <input type="text" id="globalEmpresa" placeholder="Empresa, CNPJ ou Grupo..." class="muv-input">
+                </div>
+                <select id="globalGrupo" class="muv-select">
+                    <option value="all">Todos os Grupos</option>
+                    <option value="G1">Macromaq</option>
+                    <option value="G2">G. Silva</option>
+                    <option value="G3">Viação SC</option>
+                </select>
+                <select id="globalVendedor" class="muv-select">
+                    <option value="all">Todos os Vendedores</option>
+                    <option value="ana">Ana Paula</option>
+                    <option value="joao">João Carlos</option>
+                    <option value="lucas">Lucas Moura</option>
+                    <option value="thiago">Thiago Silva</option>
+                </select>
+                <select id="globalPeriodo" class="muv-select">
+                    <option value="3m">Últimos 3 Meses</option>
+                    <option value="mes">Mês Atual</option>
+                    <option value="6m">Últimos 6 Meses</option>
+                    <option value="ano">Ano Atual</option>
+                </select>
+            </div>
+            
+            <!-- KPI's top row -->
+            <section class="kpi-row">
+                
+                <!-- Card 1: Funil Geral -->
+                <div class="panel kpi-card dual-card" style="padding:16px;">
+                    <div class="dual-card-top">
+                        <div class="kpi-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                        <span class="kpi-label">FUNIL GERAL</span>
+                    </div>
+                    <div class="kpi-info-dual" style="gap:8px; display:flex; justify-content:space-between;">
+                        <div class="kpi-split" style="text-align:center; flex:1;">
+                            <span class="kpi-label">TOT. GERAL</span>
+                            <h2 id="kpi-total-geral" style="font-size:16px;">0</h2>
+                            <div class="metric-mom positive"><i class="fa-solid fa-arrow-trend-up"></i> +8% M/M</div>
+                        </div>
+                        <div class="kpi-split" style="text-align:center; flex:1;">
+                            <span class="kpi-label">CONTATOS</span>
+                            <h2 id="kpi-total-contatos" style="font-size:16px;">0</h2>
+                            <div class="metric-mom positive"><i class="fa-solid fa-arrow-trend-up"></i> +12% M/M</div>
+                        </div>
+                        <div class="kpi-split" style="text-align:center; flex:1;">
+                            <span class="kpi-label">PERDIDAS</span>
+                            <h2 id="kpi-vend-perd-funil" class="danger-txt" style="font-size:16px;">0</h2>
+                            <div class="metric-mom negative"><i class="fa-solid fa-arrow-trend-down"></i> -4% M/M</div>
+                        </div>
+                        <div class="kpi-split right" style="text-align:center; flex:1;">
+                            <span class="kpi-label">CONVERSÃO</span>
+                            <h2 id="kpi-tx-conv" class="highlight" style="color:#f45b25; font-size:16px;">0%</h2>
+                            <div class="metric-mom positive"><i class="fa-solid fa-arrow-trend-up"></i> +1.5% M/M</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Status Final -->
+                <div class="panel kpi-card dual-card">
+                    <div class="dual-card-top">
+                        <div class="kpi-icon highlight" style="color:white; background:rgba(255,255,255,0.1)"><i class="fa-solid fa-list-check"></i></div>
+                        <span class="kpi-label">STATUS FINAL (DESFECHOS)</span>
+                    </div>
+                    <div class="kpi-info-dual" style="flex-direction:column; gap:6px; margin-top:4px;">
+                        <div style="display:flex; justify-content:space-between; width:100%; font-size:9.5px; font-weight:700;">
+                            <span style="color:var(--text-secondary)"><i class="fa-solid fa-circle-pause" style="margin-right:6px;"></i> Aberto:</span>
+                            <strong id="kpi-sf-aberto" style="color:white;">0 (0%)</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; width:100%; font-size:9.5px; font-weight:700;">
+                            <span style="color:var(--color-ok)"><i class="fa-solid fa-circle-check" style="margin-right:6px;"></i> Sucesso:</span>
+                            <strong id="kpi-sf-sucesso" style="color:white;">0 (0%)</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; width:100%; font-size:9.5px; font-weight:700;">
+                            <span style="color:var(--color-danger)"><i class="fa-solid fa-circle-xmark" style="margin-right:6px;"></i> Perdido:</span>
+                            <strong id="kpi-sf-perdido" style="color:white;">0 (0%)</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; width:100%; font-size:9.5px; font-weight:700;">
+                            <span style="color:var(--color-warning)"><i class="fa-solid fa-phone-slash" style="margin-right:4px;"></i> S/ Contato:</span>
+                            <strong id="kpi-sf-scontato" style="color:white;">0 (0%)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Faturamento Resultante -->
+                <div class="panel kpi-card dual-card">
+                    <div class="dual-card-top">
+                        <div class="kpi-icon highlight"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <span class="kpi-label">RESULTADO FINANCEIRO</span>
+                    </div>
+                    <div class="kpi-info-dual" style="flex-direction:column; gap:8px; margin-top:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+                            <span class="kpi-label">VENDIDO <br><span id="kpi-rf-qtd-suc" style="text-transform:none; font-weight:600; font-size:8px;">(0 vendas)</span></span>
+                            <div style="text-align:right;">
+                                <h2 id="kpi-rf-val-suc" class="ok-txt" style="font-size:14px; line-height:1;">R$ 0,00</h2>
+                                <div class="metric-mom positive" style="margin-top:2px; font-size:7px;"><i class="fa-solid fa-arrow-trend-up"></i> +11% M/M</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+                            <span class="kpi-label">PERDIDO <br><span id="kpi-rf-qtd-perd" style="text-transform:none; font-weight:600; font-size:8px;">(0 perdas)</span></span>
+                            <div style="text-align:right;">
+                                <h2 id="kpi-rf-val-perd" class="danger-txt" style="font-size:14px; line-height:1;">R$ 0,00</h2>
+                                <div class="metric-mom negative" style="margin-top:2px; font-size:7px;"><i class="fa-solid fa-arrow-trend-down"></i> -2% M/M</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Potencial / Alvo (Monetário) -->
+                <div class="panel kpi-card dual-card">
+                    <div class="dual-card-top">
+                        <div class="kpi-icon warning"><i class="fa-solid fa-crosshairs"></i></div>
+                        <span class="kpi-label">POTENCIAL / ALVO (MONETÁRIO)</span>
+                        <div class="kpi-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +2.1% M/M</div>
+                    </div>
+                    <div class="kpi-info-dual" style="gap:12px;">
+                        <div class="kpi-split">
+                            <span class="kpi-label">OPORTUNIDADES (GANHO)</span>
+                            <h2 id="kpi-opor-rs" class="ok-txt" style="font-size:13px;">R$ 0,00</h2>
+                            <span id="kpi-opor-qtd" style="font-size:8px; color:var(--text-muted); font-weight:700;">(0 clientes)</span>
+                        </div>
+                        <div class="separator-v"></div>
+                        <div class="kpi-split right">
+                            <span class="kpi-label">EM RISCO (PERDA 85-95D)</span>
+                            <h2 id="kpi-risco-rs-card" class="danger-txt" style="font-size:13px;">R$ 0,00</h2>
+                            <span id="kpi-risco-pct-card" style="font-size:8px; color:var(--text-muted); font-weight:700;">(0% Histórico)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Bottom Table - Full Width Ranking -->
+            <section class="dashboard-grid" style="grid-template-columns: 1fr;">
+                <div class="panel grid-panel flex-panel">
+                    <div class="panel-header" style="margin-bottom: 8px;">
+                        <h3 class="panel-title" style="font-size: 14px;">Ranking Desempenho Vendedores (+30 Consultores)</h3>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="compact-table leads-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank & Vendedor</th>
+                                    <th>Rotina (Previstas)</th>
+                                    <th class="text-center" style="color:var(--text-primary)">Tx. Conv (Ativos)</th>
+                                    <th class="text-center">Clientes Reativados</th>
+                                    <th class="text-center" style="color:var(--text-primary)">Tx. Conv (Inativos)</th>
+                                    <th class="text-right highlight-col-th" style="padding:14px;">Contenção de Risco (85-95D)</th>
+                                    <th style="width:230px; padding-left:14px;">Faturamento x Meta</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankingTbody">
+                                <!-- Populated via leads.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="leads.js"></script>
+</body>
+</html>
